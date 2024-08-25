@@ -1,15 +1,23 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Home() {
 	const { data: session, status } = useSession();
 
-	return (
-		<div>
-			<h1>Home</h1>
-			<p>Session: {JSON.stringify(session)}</p>
-			<p>Status: {status}</p>
-		</div>
-	);
+	const router = useRouter();
+
+	useEffect(() => {
+		if (status === 'unauthenticated') {
+			router.push('/login');
+		}
+	}, [status, router]);
+
+	if (status === 'loading') {
+		return <div>Loading...</div>;
+	}
+
+	return <div>Welcome, {session?.user?.name}!</div>;
 }
