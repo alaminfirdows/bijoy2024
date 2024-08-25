@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Table, Typography, message } from 'antd';
 import { getUsers } from '@/services/users';
+import Header from '@/components/header';
 
 const { Title } = Typography;
 
@@ -65,15 +66,19 @@ const UsersPage = () => {
 	];
 
 	return (
-		<div style={{ padding: '20px' }}>
-			<Title level={2}>Users</Title>
-			<Table<User>
-				columns={columns}
-				dataSource={users}
-				rowKey='id'
-				loading={loading}
-				pagination={{ pageSize: 5 }}
-			/>
+		<div className='mx-auto max-w-4xl'>
+			<Header />
+
+			<div>
+				<Title level={2}>Users</Title>
+				<Table<User>
+					columns={columns}
+					dataSource={users}
+					rowKey='id'
+					loading={loading}
+					pagination={{ pageSize: 5 }}
+				/>
+			</div>
 		</div>
 	);
 };

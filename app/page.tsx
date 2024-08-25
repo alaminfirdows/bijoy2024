@@ -1,6 +1,8 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
+import Header from '@/components/header';
+import { Button } from 'antd';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -19,5 +21,17 @@ export default function Home() {
 		return <div>Loading...</div>;
 	}
 
-	return <div>Welcome, {session?.user?.name}!</div>;
+	return (
+		<div className='max-w-4xl mx-auto py-6'>
+			<Header />
+
+			<div className='border rounded flex items-center justify-between p-6'>
+				<div>Welcome, {session?.user?.name}!</div>
+
+				<div>
+					<Button onClick={async () => signOut()}>Logout</Button>
+				</div>
+			</div>
+		</div>
+	);
 }
